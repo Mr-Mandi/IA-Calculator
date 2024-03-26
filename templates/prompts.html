@@ -1,0 +1,171 @@
+{% extends 'index.html' %} {% block content %}
+<div class="flex justify-center items-center bg-gray-600" style="height: 100vh">
+  <div
+    class="flex flex-col justify-center w-full max-w-3xl bg-white shadow-md rounded-lg"
+    style="height: 70vh; width: 90vw"
+  >
+    {% if data.error %}
+    <p class="text-center m-5 p-3" style="color: #ef4444">{{data.error}}</p>
+    {% endif %}
+
+    <form
+      class="flex flex-col flex-wrap max-w-sm mx-auto"
+      action="/message"
+      method="post"
+      style="width: 50vw"
+    >
+      <fieldset class="flex flex-wrap gap-3 p-4 m-3">
+        <legend class="sr-only">Models</legend>
+
+        <div>
+          <label
+            for="gtp-3.5-turbo-0125"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-3.5-turbo-0125"
+              id="gtp-3.5-turbo-0125"
+              class="sr-only"
+              checked
+            />
+
+            <p class="text-sm font-medium">gtp-3.5-turbo-0125</p>
+          </label>
+        </div>
+
+        <div>
+          <label
+            for="gtp-3.5-turbo-instruct"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-3.5-turbo-instruct"
+              id="gtp-3.5-turbo-instruct"
+              class="sr-only"
+            />
+
+            <p class="text-sm font-medium">gtp-3.5-turbo-instruct</p>
+          </label>
+        </div>
+
+        <div>
+          <label
+            for="gtp-4"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-4"
+              id="gtp-4"
+              class="sr-only"
+            />
+
+            <p class="text-sm font-medium">gtp-4</p>
+          </label>
+        </div>
+
+        <div>
+          <label
+            for="gtp-4-32k"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-4-32k"
+              id="gtp-4-32k"
+              class="sr-only"
+            />
+
+            <p class="text-sm font-medium">gtp-4-32k</p>
+          </label>
+        </div>
+
+        <div>
+            <label
+              for="mistralai/Mixtral-8x7B-Instruct-v0.1"
+              class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+            >
+              <input
+                type="radio"
+                name="modelOption"
+                value="mistralai/Mixtral-8x7B-Instruct-v0.1"
+                id="mistralai/Mixtral-8x7B-Instruct-v0.1"
+                class="sr-only"
+              />
+  
+              <p class="text-sm font-medium">mistralai</p>
+            </label>
+          </div>
+
+
+          <div>
+            <label
+              for="tiiuae/falcon-40b"
+              class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+            >
+              <input
+                type="radio"
+                name="modelOption"
+                value="tiiuae/falcon-40b"
+                id="tiiuae/falcon-40b"
+                class="sr-only"
+              />
+  
+              <p class="text-sm font-medium">falcon-40b</p>
+            </label>
+          </div>
+
+
+
+      </fieldset>
+
+      <label
+        for="message"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Your message</label
+      >
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Leave a comment..."
+      ></textarea>
+      <div
+        class="flex flex-col flex-wrap-reverse justify-center items-center w-full"
+      >
+        <div class="p-6">
+          <button
+            class="bg-green-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            type="submit"
+          >
+            Calculator
+          </button>
+        </div>
+
+        <div class="p-6">
+          <a
+            href="{{url_for('home')}}"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Home
+          </a>
+        </div>
+      </div>
+    </form>
+
+    {% if data.count_tokens != None %}
+      <p class="text-center m-5 p-3" style="color: #4ade80">
+        Total Tokens: {{data.count_tokens}}
+      </p>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}

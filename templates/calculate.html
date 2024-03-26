@@ -1,0 +1,163 @@
+{% extends 'index.html' %} {% block content %}
+<div class="flex justify-center items-center bg-gray-600" style="height: 100vh; width : 100vw">
+  <div
+    class="flex flex-col justify-center bg-white shadow-md rounded-lg"
+    style="height: 80vh; width: 70vw"
+  >
+
+    {% if data.error %}
+      <p class="text-center m-5 p-3" style="color: #ef4444">{{data.error}}</p>
+    {% endif %}
+
+    <form
+      class="flex flex-col flex-wrap"
+      action="/pricing"
+      method="post"
+      style="width: 100%"
+    >
+      <div
+        class="flex flex-col flex-wrap justify-center items-center flex-wrap"
+      >
+
+      <fieldset class="flex flex-wrap gap-3">
+        <legend class="sr-only">Models</legend>
+
+        <div>
+          <label
+            for="gtp-3.5-turbo-0125"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-3.5-turbo-0125"
+              id="gtp-3.5-turbo-0125"
+              class="sr-only"
+              checked
+            />
+
+            <p class="text-sm font-medium">gtp-3.5-turbo-0125</p>
+          </label>
+        </div>
+
+        <div>
+          <label
+            for="gtp-3.5-turbo-instruct"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-3.5-turbo-instruct"
+              id="gtp-3.5-turbo-instruct"
+              class="sr-only"
+            />
+
+            <p class="text-sm font-medium">gtp-3.5-turbo-instruct</p>
+          </label>
+        </div>
+
+        <div>
+          <label
+            for="gtp-4"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-4"
+              id="gtp-4"
+              class="sr-only"
+            />
+
+            <p class="text-sm font-medium">gtp-4</p>
+          </label>
+        </div>
+
+        <div>
+          <label
+            for="gtp-4-32k"
+            class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500 has-[:checked]:text-white"
+          >
+            <input
+              type="radio"
+              name="modelOption"
+              value="gtp-4-32k"
+              id="gtp-4-32k"
+              class="sr-only"
+            />
+
+            <p class="text-sm font-medium">gtp-4-32k</p>
+          </label>
+        </div>
+
+
+      </fieldset>
+
+
+        <div class="flex flex-wrap"> 
+            <div class="flex p-3 m-3">
+              <label for="prompt_number">Number of tokens in prompt:</label>
+              <input type="number" id="prompt_number" name="prompt_number" required class="w-full border rounded shadow bg-slate-50 text-gray-700 focus:ring-blue-500">
+            </div>
+            
+            <div class="flex p-3 m-3">
+              <label for="output_token">Maximum response tokens:</label>
+              <input type="number" id="output_token" name="output_token" required class="w-full border rounded shadow bg-slate-50 text-gray-700 focus:ring-blue-500">
+            </div>  
+        </div>
+
+
+        <div class="flex flex-wrap"> 
+          <div class="flex p-3 m-3">
+            <label for="days">Days:</label>
+            <input type="number" id="days" name="days" required class="w-full border rounded shadow bg-slate-50 text-gray-700 focus:ring-blue-500">
+          </div>
+
+          <div class="flex p-3 m-3">
+            <label for="users">total users:</label>
+            <input type="number" id="users" name="users" required class="w-full border rounded shadow bg-slate-50 text-gray-700 focus:ring-blue-500">
+          </div>
+        </div>
+
+        <div class="flex p-3 m-3">
+            <div class="p-4">
+              <button
+                class="bg-green-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+              >
+                Calculator
+              </button>
+            </div>
+        
+            <div class="p-4">
+              <a
+                href="{{url_for('home')}}"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Home
+              </a>
+            </div>
+        </div>
+
+      </div>
+    </form>
+
+      {% if data.pricing != None %}
+        <div class="flex flex-col justify-center items-center">
+          <strong>Estimated price for</strong>
+          <ul>
+            <li>
+              users:{{data.users}}
+            </li>
+            <li>
+              days:{{data.days}}
+            </li>
+            <li>Pricing:{{data.pricing}}$</li>
+          </ul>
+        </div>
+      {% endif %}
+
+  </div>
+</div>
+{% endblock %}
